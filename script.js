@@ -1,14 +1,98 @@
+let player = document.querySelector("#playerScore");
+let computer = document.querySelector("#computerScore");
+let rock = document.querySelector("#rock");
+let paper = document.querySelector("#paper");
+let scissors = document.querySelector("#scissors");
+let parent = document.querySelector(".parent");
+let gameProgress = document.querySelector("#gameProgress");
+let gameResult = document.querySelector("#gameResult");
+    //keep score of player and computer
+playerScore = 0;
+computerScore = 0;
 //variables for capitalizing choices of players
-let playerName, computerName;
+let playerName, computerName, playerInput;
 
-//Get human input
-//store input as lowercase 
-function playerSelection(){
-    const playerInput = prompt("Rock, Paper or Scissors?");
-    const playerInputInput = playerInput.toLowerCase();
-    playerName = playerInput.toLowerCase();
-    return playerInputInput;
+let gameOn = true;
+
+function restart(){
+   
+
+        
+
 }
+//Get human input
+parent.addEventListener("click", (e) =>{
+    switch(e.target.id){
+        case "rock":
+            playerInput = e.target.id;
+            break;
+
+        case "paper":
+            playerInput = e.target.id;
+            break;
+
+        case "scissors":
+            playerInput = e.target.id;
+            break;
+
+        default:
+            break;
+
+    }
+    playerName = playerInput;
+    if(gameOn){
+    let gameOutcome = playRound(playerInput, computerSelection());
+    gameOutcome;
+    //game outcome
+    
+    //proper names to display in the client
+    //makes proper name of the choice of a player with capitalized letter 
+    let playerChoice = playerName[0].toUpperCase() + playerName.slice(1);
+    let computerChoice = computerName[0].toUpperCase() + computerName.slice(1);
+
+    // when computer wins, add points to computer
+    if (gameOutcome == null){
+        gameProgress.textContent = "A TIE!"
+    }
+    else if(gameOutcome == false){
+        computerScore++;
+        computer.textContent = computerScore;
+        gameProgress.textContent = `PC's ${computerChoice} beats your ${playerChoice}`
+        
+    //when player wins - to player
+    }else{
+        playerScore++;
+        player.textContent = playerScore;
+        gameProgress.textContent =`Your ${playerChoice} beats PC's ${computerChoice}`
+    }
+            computerChoice = console.log(`${playerScore} : ${computerScore}`)
+
+    if(computerScore === 5 || playerScore === 5){
+        if (playerScore > computerScore){
+            gameResult.textContent = `${playerScore} : ${computerScore}\nYou win!\nCongratulations!`
+        }
+        else{
+            gameResult.textContent = `${playerScore} : ${computerScore}\nComputer bested you! \nBetter luck next time!`
+        }
+        //cannot play
+        gameOn = false;
+        //timeout to show score and let play after timeout
+        setTimeout(function(){
+            playerScore = 0;
+            computerScore = 0;
+            player.textContent = computerScore;
+            computer.textContent = computerScore;
+            gameOn = true;
+        }, 3000)
+    }
+    }
+})
+
+//store input as lowercase 
+
+
+
+
 //generate computer choice
 function computerSelection(){
     const arrayOfChoices = ["rock", "paper", "scissors"];
@@ -63,14 +147,17 @@ function playRound(playerSelection, computerSelection){
     }
     //when its a ties print
     if (isTie){
+        console.log('tie')
         return null;
     }
     //if its not a tie, print who won
     else{
         if (playerWin){
+            console.log('plaer')
             return true;
         }
         else{
+            console.log('pc')
             return false;
         }
 }
@@ -87,54 +174,10 @@ function playRound(playerSelection, computerSelection){
     //jei zmogus laimejo - zmogui taskas
     //daugiausiai tasku surinkes laimi
 
-function game(){
-    //keep score of player and computer
-    let playerScore = 0;
-    let computerScore = 0;
 
-    //condition for a while loop
-    let keepGoing = true;
+
 
     //algorith for best of five
-    while (keepGoing){
-        //game outcome
-        let gameOutcome = playRound(playerSelection(), computerSelection());
-        //proper names to display in the client
-        //makes proper name of the choice of a player with capitalized letter 
-        let playerChoice = playerName[0].toUpperCase() + playerName.slice(1);
-        let computerChoice = computerName[0].toUpperCase() + computerName.slice(1);
-
-        // when computer wins, add points to computer
-        if (gameOutcome == null){
-            console.log(`A TIE!`)
-        }
-        else if(gameOutcome == false){
-            computerScore++;
-            console.log(`PC's ${computerChoice} beats your ${playerChoice}`)
-            
-        //when player wins - to player
-        }else{
-            playerScore++;
-            console.log(`Your ${playerChoice} beats PC's ${computerChoice}`)
-        }
-              
-                computerChoice = 
-        console.log(`${playerScore} : ${computerScore}`)
+        
 
         //score logger
-        //when one of the players reaches 3 points, the game ends.
-        if(computerScore === 3 || playerScore === 3){
-            keepGoing = false;
-        }
-    }
-        if (playerScore > computerScore){
-            console.log("You win!\nCongratulations!")
-        }
-        else{
-            console.log("Computer bested you! \nBetter luck next time!")
-        }
-}
-
-//play the game
-console.log(game());
-

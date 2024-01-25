@@ -3,10 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.cdnfonts.com/css/cursed-timer-ulil" rel="stylesheet">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
-    <script src="script.js"></script>
 </head>
 <body>
+    <div class="container">
+    <div class="text">
+        <h3 style="text-align: center;" id="gameProgress"></h3>
+        <h3 style="text-align: center;" id="gameResult"></h3>
+    </div>
+    <div class="scores">
+        <div class="player">
+            <h1 id="playerScore">0</h1>
+            <h2 >Player</h2>
+        </div>
+        
+    <div class="computer">
+        <h1 id="computerScore">0</h1>
+        <h2 >Computer</h2>
+    </div>
     
+    </div>
+    <div class="parent">
+        <button class="btn" id="rock">rock</button>
+        <button class="btn" id="paper">paper</button>
+        <button class="btn" id="scissors">scissors</button>
+    </div>
+    </div>
 </body>
 </html>
