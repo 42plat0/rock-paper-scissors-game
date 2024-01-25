@@ -12,14 +12,9 @@ computerScore = 0;
 //variables for capitalizing choices of players
 let playerName, computerName, playerInput;
 
+//game can be played
 let gameOn = true;
 
-function restart(){
-   
-
-        
-
-}
 //Get human input
 parent.addEventListener("click", (e) =>{
     switch(e.target.id){
@@ -44,7 +39,8 @@ parent.addEventListener("click", (e) =>{
     let gameOutcome = playRound(playerInput, computerSelection());
     gameOutcome;
     //game outcome
-    
+
+//TO DO -- SUZINOTI AR REIKALINGI 51.52 EILUTES
     //proper names to display in the client
     //makes proper name of the choice of a player with capitalized letter 
     let playerChoice = playerName[0].toUpperCase() + playerName.slice(1);
@@ -65,7 +61,6 @@ parent.addEventListener("click", (e) =>{
         player.textContent = playerScore;
         gameProgress.textContent =`Your ${playerChoice} beats PC's ${computerChoice}`
     }
-            computerChoice = console.log(`${playerScore} : ${computerScore}`)
 
     if(computerScore === 5 || playerScore === 5){
         if (playerScore > computerScore){
@@ -87,11 +82,6 @@ parent.addEventListener("click", (e) =>{
     }
     }
 })
-
-//store input as lowercase 
-
-
-
 
 //generate computer choice
 function computerSelection(){
@@ -147,17 +137,14 @@ function playRound(playerSelection, computerSelection){
     }
     //when its a ties print
     if (isTie){
-        console.log('tie')
         return null;
     }
     //if its not a tie, print who won
     else{
         if (playerWin){
-            console.log('plaer')
             return true;
         }
         else{
-            console.log('pc')
             return false;
         }
 }
