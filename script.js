@@ -19,9 +19,9 @@ function computerSelection(){
 //play round
 function playRound(playerSelection, computerSelection){
 //is player winning? it changes when player won the round!
-    let playerWin = false;
+    let playerWin = null;
 
-//if its a tie, it turns to true and prints its a tie
+    //if its a tie, it turns to true and prints its a tie
     let isTie = false;
 
 //all possible combinations, decides if a player won/lost/drew
@@ -58,20 +58,22 @@ function playRound(playerSelection, computerSelection){
             playerWin = false;
         }
     }
-//when its a ties print 'its a tie!'
+    else{
+        return null;
+    }
+    //when its a ties print
     if (isTie){
         return null;
     }
-//if its not a tie, print who won
+    //if its not a tie, print who won
     else{
         if (playerWin){
-            
             return true;
         }
         else{
             return false;
         }
-    }
+}
 }
 //play five rounds of game
 //reiskias, kad reikes pasalinti paskutines eilutes, kurios paskelbia nugaletoja, o tiesog funkcijos pabaigoje grazinti rezultata
@@ -89,26 +91,37 @@ function game(){
     //keep score of player and computer
     let playerScore = 0;
     let computerScore = 0;
-    //proper names to display in the client
-    let playerChoice;
-    let computerChoice;
+
     //condition for a while loop
     let keepGoing = true;
 
     //algorith for best of five
     while (keepGoing){
+        //game outcome
+        let gameOutcome = playRound(playerSelection(), computerSelection());
+        //proper names to display in the client
+        //makes proper name of the choice of a player with capitalized letter 
+        let playerChoice = playerName[0].toUpperCase() + playerName.slice(1);
+        let computerChoice = computerName[0].toUpperCase() + computerName.slice(1);
+
         // when computer wins, add points to computer
-        if(playRound(playerSelection(), computerSelection()) == false){
+        if (gameOutcome == null){
+            console.log(`A TIE!`)
+        }
+        else if(gameOutcome == false){
             computerScore++;
+            console.log(`PC's ${computerChoice} beats your ${playerChoice}`)
+            
         //when player wins - to player
         }else{
             playerScore++;
+            console.log(`Your ${playerChoice} beats PC's ${computerChoice}`)
         }
-        //makes proper name of the choice of a player with capitalized letter 
-        playerChoice = playerName[0].toUpperCase() + playerName.slice(1);
-        computerChoice = computerName[0].toUpperCase() + computerName.slice(1);
+              
+                computerChoice = 
+        console.log(`${playerScore} : ${computerScore}`)
+
         //score logger
-        console.log(`${playerScore} : ${computerScore}, Your ${playerChoice} beats ${computerChoice}`)
         //when one of the players reaches 3 points, the game ends.
         if(computerScore === 3 || playerScore === 3){
             keepGoing = false;
