@@ -5,32 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.cdnfonts.com/css/cursed-timer-ulil" rel="stylesheet">
     <script src="script.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" defer></script>
+    <link href="https://db.onlinewebfonts.com/c/4c3a0d30e0b1a8cbda1a2485f56d9197?family=DisposableDroid+BB+Bold" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-    <div class="container">
-    <div class="text">
-        <h3 style="text-align: center;" id="gameProgress"></h3>
-        <h3 style="text-align: center;" id="gameResult"></h3>
-    </div>
-    <div class="scores">
-        <div class="player">
-            <h1 id="playerScore">0</h1>
-            <h2 >Player</h2>
+    
+    <div class="parentContainer">
+        <div class="container">
+        <div class="text">
+            <p style="text-align: center; font-size: 3em; margin: auto;" id="gameProgress"></p>
+            <!-- <h3 style="text-align: center;" id="gameResult"></h3> -->
+        </div>
+        <div class="scores">
+            <div class="player">
+                <h1 id="playerScore">0</h1>
+                <h2 >Player</h2>
+            </div>
+            
+        <div class="computer">
+            <h1 id="computerScore">0</h1>
+            <h2 >Computer</h2>
         </div>
         
-    <div class="computer">
-        <h1 id="computerScore">0</h1>
-        <h2 >Computer</h2>
-    </div>
-    
-    </div>
-    <div class="parent">
-        <button class="btn" id="rock">rock</button>
-        <button class="btn" id="paper">paper</button>
-        <button class="btn" id="scissors">scissors</button>
-    </div>
+        </div>
+        <div class="parent">
+            <button class="btn" >
+                <span class="back"></span>
+                <span class="front" id="rock">ROCK</span>
+            </button>
+            <button class="btn" >
+                <span class="back"></span>
+                <span class="front" id="paper">PAPER</span>
+            </button>
+            <button class="btn" >
+                <span class="back"></span>
+                <span class="front" id="scissors">SCISSORS</span>
+            </button>
+        </div>
+        </div>
+        <div class="playerChoiceImage"> 
+            <p style="font-size: 150px; margin: auto;" id="playerChoiceImage"></p>
+        </div>
+        <div class="computerChoiceImage">
+            <p style="font-size: 150px; margin: auto;" id="computerChoiceImage"></p>
+        </div>
     </div>
 </body>
 </html>
