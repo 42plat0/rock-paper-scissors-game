@@ -1,17 +1,13 @@
 let player = document.querySelector("#playerScore");
 let computer = document.querySelector("#computerScore");
-let rock = document.querySelector("#rock");
-let paper = document.querySelector("#paper");
-let scissors = document.querySelector("#scissors");
 let parent = document.querySelector(".parent");
 let gameProgress = document.querySelector("#gameProgress");
-// let gameResult = document.querySelector("#gameResult");
 let playerChoiceImage = document.querySelector("#playerChoiceImage");
 let computerChoiceImage = document.querySelector("#computerChoiceImage");
 let mainContainer = document.querySelector(".parentContainer");
 let childContainer = document.querySelector(".container");
-let body = document.querySelector("body");
 
+//choices as images
 let rockImage = "✊";
 let paperImage = "✋";
 let scissorsImage = "✌️";
@@ -19,22 +15,25 @@ let scissorsImage = "✌️";
 //keep score of player and computer
 let playerScore = 0;
 let computerScore = 0;
-//variables for capitalizing choices of players
-let playerName, computerName, playerInput;
 
-let x;
+//variables for capitalizing choices of players, storing player input, storing gamesui
+let playerName, computerName, playerInput, gameUi;
+
 //game can be played
 let gameOn = true;
 
 //popup window
 //remove container
 function detachContainer(){
-    x = $(".parentContainer").detach();
+    gameUi = $(".parentContainer").detach();
 }
 //add container
 function appendContainer(){
-    $("body").prepend(x);
+    $("body").prepend(gameUi);
 }
+
+//TODO - PER DIDELIS PLOTAS PASISPAUDZIA IR UZSKAITO PASPAUDIMA 39
+//APRIBOTI PASPAUDIMO PLOTA TIK APIE MYGTUKA SU PASIRINKIMAIS 39
 
 //Get human input
 parent.addEventListener("click", (e) => {
@@ -42,18 +41,17 @@ parent.addEventListener("click", (e) => {
         case "rock":
             playerInput = e.target.id;
             break;
-
         case "paper":
             playerInput = e.target.id;
             break;
-
         case "scissors":
             playerInput = e.target.id;
             break;
         default:
             break;
-
     }
+    
+    //needed for displaying game progress
     playerName = playerInput;
     if (gameOn) {
         //show player choice image
@@ -70,64 +68,71 @@ parent.addEventListener("click", (e) => {
             default:
                 break;
         }
+        //play rounds with player and computer input
         let gameOutcome = playRound(playerInput, computerSelection());
         gameOutcome;
-        //game outcome
 
-        //TO DO -- SUZINOTI AR REIKALINGI playerChoice.computerChoice EILUTES
         //proper names to display in the client
         //makes proper name of the choice of a player with capitalized letter 
         let playerChoice = playerName[0].toUpperCase() + playerName.slice(1);
         let computerChoice = computerName[0].toUpperCase() + computerName.slice(1);
 
-        // when computer wins, add points to computer
+        // when computer wins, add points to computer, when player - to player
+        //when tie, dont add points
         if (gameOutcome == null) {
             gameProgress.textContent = "A TIE!"
         } else if (gameOutcome == false) {
             computerScore++;
             computer.textContent = computerScore;
             gameProgress.textContent = `PC's ${computerChoice} beats your ${playerChoice}`
-
-
-            //when player wins - to player
         } else {
             playerScore++;
             player.textContent = playerScore;
             gameProgress.textContent = `Your ${playerChoice} beats PC's ${computerChoice}`
-
         }
         //popup window
+        //div that contains message
         const newDiw = document.createElement("div");
         newDiw.classList.add("popupWindow");
+        //message
         const para = document.createElement("h2");
         para.classList.add("popupPara");
 
-        if (computerScore === 2 || playerScore === 2) {
+        //if either of players has 5 points then we anounce the winner
+        //by showing popup window with the score and friendly messages
+        if (computerScore === 5 || playerScore === 5) {
             if (playerScore > computerScore) {
                 para.textContent = `${playerScore} : ${computerScore} \r\n` 
-                para.textContent+= "You win!\r\n" + "Congratulations!"
+                para.textContent+= "You win!\r\n" + "Nice going!"
             } else {
                 para.textContent = `${playerScore} : ${computerScore}\r\n` + "Computer wins.\r\n" + "Tough luck.";
             }
             //cannot play
             gameOn = false;
             //removes main container
+            //when dom is ready
             $(document).ready(detachContainer());
+                //append div containing popup message
                 document.body.appendChild(newDiw);
+                //append popup message
                 newDiw.appendChild(para);
 
             //timeout to show score and let play after timeout
             setTimeout(function () {
+                //reset scores
                 playerScore = 0;
                 computerScore = 0;
-                player.textContent = computerScore;
+                //and show them on screen
+                player.textContent = playerScore;
                 computer.textContent = computerScore;
+                //game is available to play
                 gameOn = true;
-                // gameResult.textContent = ""
+                //remove game progress text and choices of players
                 gameProgress.textContent = ""
                 computerChoiceImage.textContent = "";
                 playerChoiceImage.textContent = "";
                 //restores main container  
+                //dom ready and remove added container
                 $(document).ready(appendContainer())
                 document.body.removeChild(newDiw);
             }, 3000)
@@ -153,7 +158,6 @@ function computerSelection() {
         default:
             break;
     }
-
     return computerName;
 }
 //play round
@@ -192,11 +196,10 @@ function playRound(playerSelection, computerSelection) {
     } else {
         return null;
     }
-    //when its a ties print
+    //tie
     if (isTie) {
         return null;
     }
-    //if its not a tie, print who won
     else {
         if (playerWin) {
             return true;
@@ -205,17 +208,3 @@ function playRound(playerSelection, computerSelection) {
         }
     }
 }
-//play five rounds of game
-//reiskias, kad reikes pasalinti paskutines eilutes, kurios paskelbia nugaletoja, o tiesog funkcijos pabaigoje grazinti rezultata
-//if (isTie) grazinti, kad buvo lygiosios
-//kitu atveju, grazinti nugaletoja
-//jei playerWin yra true, zmogus laimejo
-//else kompas
-//reikia prideti best of five logika
-//playround logika grazina nugaletoja
-//jei kompiuteris laimejo - kompiuteriui taskas
-//jei zmogus laimejo - zmogui taskas
-//daugiausiai tasku surinkes laimi
-
-//algorith for best of five
-//score logger
